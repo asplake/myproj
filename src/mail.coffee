@@ -2,6 +2,9 @@ class Mail
   constructor: (@folder, mail) ->
     for k, v of mail
       this[k] = v
+    if @date
+      @date = new Date(@date)
+    console.log @date
     this
 
   @mailData = []

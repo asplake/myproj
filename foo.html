@@ -68,7 +68,7 @@
                   <td data-bind="text: from"></td>
                   <td data-bind="text: to"></td>
                   <td data-bind="text: subject"></td>
-                  <td data-bind="text: date"></td>
+                  <td data-bind="text: h.dateString(date)"></td>
               </tr>     
           </tbody>
       </table>
@@ -106,6 +106,7 @@
     <script src="./ext/jquery-1.7.2.min.js"></script>
     <script src="./ext/sammy/lib/sammy.js"></script>
     <script src="./ext/knockout/build/output/knockout-latest.js"></script>
+    <script src="./lib/helpers.js"></script>
     <script src="./lib/mail.js"></script>
     <script src="./lib/maildata.js"></script>
     <script src="./lib/foo.js"></script>
