@@ -1,0 +1,1 @@
+Toy project with coffeescript, knockout and bootstrap
