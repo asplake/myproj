@@ -1,0 +1,9 @@
+[submodule "ext/bootstrap"]
+	path = ext/bootstrap
+	url = https://github.com/twitter/bootstrap.git
+[submodule "ext/knockout"]
+	path = ext/knockout
+	url = https://github.com/SteveSanderson/knockout.git
+[submodule "ext/sammy"]
+	path = ext/sammy
+	url = https://github.com/quirkey/sammy.git
