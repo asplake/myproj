@@ -1,4 +1,4 @@
-this._mailData = [
+this.Mail.setMailData([
     {
       id:             0,
       subject:        "Foo1",
@@ -14,4 +14,4 @@ this._mailData = [
       date:           "23/2/2012",
       messageContent: "FooContent 2"
     }
-]
+])

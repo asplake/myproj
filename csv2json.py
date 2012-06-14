@@ -29,6 +29,13 @@ FORMATS = {
 
 
 def group_row(row, h1):
+    """
+    Groups this (csv):
+        h1:  ,X,,Y,,Z,,
+        row: a, b, c, d, e, f, g
+    Into this:
+        [[None, 'a'], ['X', 'b', 'c'], ['Y', 'd', e], ['Z', 'f', 'g']
+    """
     grouped = [[None, []]]
     for h1c, c in zip(h1, row):
         h1c, c = h1c or None, c or None
@@ -39,6 +46,9 @@ def group_row(row, h1):
     return grouped
 
 def group_headers(row, h1):
+    """
+    Groups two header rows using group_row(); validates
+    """
     def assert_fields(group_name, group):
         assert group[0] == group_name
         for detail in group[1]:
@@ -50,6 +60,9 @@ def group_headers(row, h1):
     return grouped
 
 def row_to_dict(row, h1, grouped_headers):
+    """
+    Group a data row, convert to a dict
+    """
     def format(name, value):
         return FORMATS[name](value) if name in FORMATS else value
     def formatted_pairs(names, values):
@@ -68,6 +81,9 @@ def row_to_dict(row, h1, grouped_headers):
                        formatted_lists(grouped_data[3:])))
 
 def csv2dict(f_in):
+    """
+    Take an input stream of structured csv data and convert to a dict
+    """
     reader = csv.reader(f_in)
     converted_rows = []
     h1, h2 = next(reader), next(reader)
@@ -76,7 +92,23 @@ def csv2dict(f_in):
         converted_rows.append(row_to_dict(row, h1, grouped_headers))
     return dict(headers=grouped_headers, data=converted_rows)
 
+def to_json(f_in, procname):
+    """
+    Take an input stream of structured csv data and convert to json,
+    optionally wrapped to make output of the form
+        <procname>(<json>);
+    e.g.
+        Project.setProjectData({ ... });
+    """
+    if procname:
+        prefix = '%s(' % procname
+        suffix = ');'
+    else:
+        prefix = suffix = ''
+    return prefix + json.dumps(csv2dict(f_in), indent=4) + suffix
 
-with open(sys.argv[1], 'rU') as f_in:
-    data = csv2dict(f_in)
-    print json.dumps(data, indent=4)
+
+if __name__ == "__main__":
+    procname = sys.argv[2] if len(sys.argv) > 2 else None
+    with open(sys.argv[1], 'rU') as f_in:
+        print to_json(f_in, procname)

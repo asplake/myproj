@@ -1,18 +1,5 @@
 
-class Mail
-  constructor: (@folder, mail) ->
-    for k, v of mail
-      this[k] = v
-    this
-
-  @mailData = []
-  @setMailData: (@mailData) ->
-
-  @mailsForFolder: (folder) ->
-    new Mail(folder, mail) for mail in @mailData
-
-  @oneForFolderAndId: (folder, mailId) ->
-    @mailsForFolder(folder)[mailId]
+Mail = this.Mail
 
 
 class WebMailApp
@@ -42,8 +29,6 @@ class WebMailApp
     @chosenFolderData null
     @chosenMailData Mail.oneForFolderAndId(folder, mailId)
 
-
-Mail.setMailData this._mailData
 
 app = new WebMailApp()  
 ko.applyBindings(app)
