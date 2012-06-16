@@ -1,17 +1,17 @@
 class Project
-  constructor: (data) ->
+  constructor: (@headers, data) ->
     for k, v of data
       this[k] = v
     this
 
-  @_projectData = []
-  @setProjectData: (list) ->
-    @_projectData = Project(data) for data in list
+  @items = []
+  @headers = []
 
-  @all: -> @_projectData
+  @setProjectData: (dataset) ->
+    @headers = dataset.headers
+    @items = Project(@headers, item) for item in dataset.data
 
-  @oneForFolderAndId: (folder, projectId) ->
-    @projectsForFolder(folder)[projectId]
+  @all: -> @items
 
 
 exports = this
