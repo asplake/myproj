@@ -1,8 +1,8 @@
 
 class Helpers
-	@date_to_string: (date) ->
-		if d
-			d.toISOString()[0..9]
+	@dateString: (date) ->
+		if date
+			date.toISOString()[0..9]
 		else
 			''
 
